@@ -1,0 +1,26 @@
+name: 'heroku-delete-app'
+
+inputs:
+    app:
+        required: true
+        description: |
+            Heroku app.
+            Ex: 'app'.
+
+    token:
+        required: true
+        description: |
+            Heroku API Key.
+            Ex: 'asdf1234'.
+
+runs:
+    using: 'composite'
+
+    steps:
+        - name: 'Delete app'
+          uses: 'intercapinc/heroku-client@48a0127c4f9227b043d3af78fdaa997be701382e'
+          with:
+              endpoint: 'apps/${{ inputs.app }}'
+              method: 'DELETE'
+              token: '${{ inputs.token }}'
+              expected: 200
